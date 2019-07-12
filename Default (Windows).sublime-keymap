@@ -1,0 +1,65 @@
+[
+    { "keys": ["ctrl+tab"],       "command": "next_view" },
+    { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+
+    { "keys": ["ctrl+k", "ctrl+s"], "command": "swap_case" },
+
+    { "keys": ["shift+alt+up"],   "command": "select_lines", "args": {"forward": false} },
+    { "keys": ["shift+alt+down"], "command": "select_lines", "args": {"forward": true} },
+
+    { "keys": ["ctrl+e"],              "command": "create_diary_entry" },
+    { "keys": ["ctrl+pageup"],         "command": "switch_diary_entry", "args": {"forward": false, "same_view": true} },
+    { "keys": ["ctrl+pagedown"],       "command": "switch_diary_etry", "args": {"forward": true,  "same_view": true} },
+    { "keys": ["ctrl+shift+pageup"],   "command": "switch_diary_entry", "args": {"forward": false, "same_view": false} },
+    { "keys": ["ctrl+shift+pagedown"], "command": "switch_diary_entry", "args": {"forward": true,  "same_view": false} },
+
+    { "keys": ["alt+pageup"],          "command": "switch_diary_entry", "args": {"forward": false, "same_view": true} },
+    { "keys": ["alt+pagedown"],        "command": "switch_diary_entry", "args": {"forward": true,  "same_view": true} },
+    { "keys": ["alt+shift+pageup"],    "command": "switch_diary_entry", "args": {"forward": false, "same_view": false} },
+    { "keys": ["alt+shift+pagedown"],  "command": "switch_diary_entry", "args": {"forward": true,  "same_view": false} },
+
+    { "keys": ["alt+/"],          "command": "get_entry_info" },
+    { "keys": ["alt+enter"],      "command": "toggle_checkbox", 
+                                  "args": {"target": "toggle"},
+                                  "context": [
+            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.unnumbered.note", "match_all": true },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+        ]
+    },
+    { "keys": ["alt+backspace"],  "command": "toggle_checkbox", 
+                                  "args": {"target": "cancel"},
+                                  "context": [
+            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.unnumbered"},
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+        ]
+    },
+
+    { "keys": ["alt+up"],         "command": "increment", "args": {"delta": 1} },
+    { "keys": ["alt+down"],       "command": "increment", "args": {"delta": -1} },
+
+    { "keys": ["alt+1"],          "command": "insert_region_number" },
+
+    { "keys": ["alt+equals"],     "command": "evaluate_expression" },
+    { "keys": ["ctrl+r"],         "command": "execute_statement" },
+
+    { "keys": ["enter"],          "command": "add_list_item", 
+                                  "context": [
+            { "key": "selector", "operator": "equal", "operand": "markup.list.unnumbered.note" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+        ]
+    },
+    { "keys": ["enter"],          "command": "add_numbered_list_item", 
+                                  "context": [
+            { "key": "selector", "operator": "equal", "operand": "markup.list.numbered.note" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+        ]
+    },
+
+    { "keys": ["ctrl+k", "ctrl+t"],          "command": "insert_time" },
+
+]
+
