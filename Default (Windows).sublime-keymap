@@ -9,7 +9,7 @@
 
     { "keys": ["ctrl+e"],              "command": "create_diary_entry" },
     { "keys": ["ctrl+pageup"],         "command": "switch_diary_entry", "args": {"forward": false, "same_view": true} },
-    { "keys": ["ctrl+pagedown"],       "command": "switch_diary_etry", "args": {"forward": true,  "same_view": true} },
+    { "keys": ["ctrl+pagedown"],       "command": "switch_diary_entry", "args": {"forward": true,  "same_view": true} },
     { "keys": ["ctrl+shift+pageup"],   "command": "switch_diary_entry", "args": {"forward": false, "same_view": false} },
     { "keys": ["ctrl+shift+pagedown"], "command": "switch_diary_entry", "args": {"forward": true,  "same_view": false} },
 
@@ -31,6 +31,22 @@
                                   "args": {"target": "cancel"},
                                   "context": [
             { "key": "eol_selector", "operator": "equal", "operand": "markup.list.unnumbered"},
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+        ]
+    },
+    { "keys": ["alt+enter"],      "command": "toggle_checkbox", 
+                                  "args": {"target": "toggle"},
+                                  "context": [
+            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.numbered.note", "match_all": true },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false },
+        ]
+    },
+    { "keys": ["alt+backspace"],  "command": "toggle_checkbox", 
+                                  "args": {"target": "cancel"},
+                                  "context": [
+            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.numbered"},
             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
             { "key": "auto_complete_visible", "operator": "equal", "operand": false },
         ]
