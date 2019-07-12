@@ -157,7 +157,6 @@ class GetEntryInfoCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
         if not self.is_diary_entry():
-            print("not a diary entry")
             return
         self.create_output(edit)
         self.view.window().run_command("show_panel", {"panel": "output." + PANEL_NAME})
