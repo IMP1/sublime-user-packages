@@ -131,7 +131,7 @@ contexts:
       scope: support.function.note
 
     # Mention
-    - match: '@[\w]+'
+    - match: '(?<!\w)@[\w]+'
       scope: support.function.note
 
     # Comments
