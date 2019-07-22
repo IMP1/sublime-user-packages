@@ -10,8 +10,10 @@ class UpdateDiaryEntrySettings(sublime_plugin.EventListener):
     ignore_events = True
 
     def is_diary_entry(self, filename):
-        return ".note" in filename
+        if ".note" not in filename:
+            return False
         # TODO: maybe make sure it's a diary entry?
+        return True
 
     def on_load(self, view):
         if UpdateDiaryEntrySettings.ignore_events:
