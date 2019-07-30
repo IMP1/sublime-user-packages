@@ -30,17 +30,17 @@ class GetEntryInfoCommand(sublime_plugin.TextCommand):
         # TODO: maybe make sure it's a diary entry?
 
     def get_date_string(self):
-        region = self.view.find("\\d\\d\\d\\d\\-\\d\\d\\-\\d\\d", 0)
+        region = self.view.find(r"\b\d{4}\-\d{2}\-\d{2}\b", 0)
         return self.view.substr(region)
 
     def get_times(self):
-        regions = self.view.find_all("\\d{4}\\-\\d{4}", 0)
+        regions = self.view.find_all(r"\b\d{4}\-\d{4}\b", 0)
         times = [self.view.substr(r) for r in regions]
         times = [t.split("-") for t in  times]
         times = [{"from": [int(t[0][0:2]), int(t[0][2:4])], "to": [int(t[1][0:2]), int(t[1][2:4])]} for t in times]
 
         # Add a last time for an ongoing time period.
-        region = self.view.find("\\d{4}\\-\\D", 0)
+        region = self.view.find(r"\b\d{4}\-[\D\W]", 0)
         if region:
             ongoing = self.view.substr(region)[0:4]
             now = datetime.datetime.now()
@@ -67,6 +67,8 @@ class GetEntryInfoCommand(sublime_plugin.TextCommand):
 
         h = times[-1]["to"][0] - times[0]["from"][0]
         m = times[-1]["to"][1] - times[0]["from"][1]
+        print(times[0])
+        print(times[-1])
         while m < 0:
             h -= 1
             m += 60
@@ -117,6 +119,8 @@ class GetEntryInfoCommand(sublime_plugin.TextCommand):
         times = self.get_times()
         hours = self.get_hours(times)
         total = self.get_total_day(times)
+
+        print(date)
 
         todo_tree = self.get_todo_tree()
         all_todos = self.get_todo_list(todo_tree)[1:] # Remove the abstract root
