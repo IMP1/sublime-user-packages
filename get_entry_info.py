@@ -25,7 +25,6 @@ class UpdateEntryInfo(sublime_plugin.EventListener):
 class GetEntryInfoCommand(sublime_plugin.TextCommand):
 
     def is_diary_entry(self):
-        print(self.view.file_name())
         return ".note" in self.view.file_name()
         # TODO: maybe make sure it's a diary entry?
 
@@ -67,8 +66,6 @@ class GetEntryInfoCommand(sublime_plugin.TextCommand):
 
         h = times[-1]["to"][0] - times[0]["from"][0]
         m = times[-1]["to"][1] - times[0]["from"][1]
-        print(times[0])
-        print(times[-1])
         while m < 0:
             h -= 1
             m += 60
@@ -98,6 +95,8 @@ class GetEntryInfoCommand(sublime_plugin.TextCommand):
                 parent = tree
             else:
                 for i in range(0, indent_level):
+                    if not parent['children']:
+                        continue
                     parent = parent['children'][-1]
             t['parent'] = parent
             parent['children'].append(t)
@@ -114,24 +113,27 @@ class GetEntryInfoCommand(sublime_plugin.TextCommand):
 
     def create_output(self, edit):
         panel = self.view.window().create_output_panel(PANEL_NAME)
+
+        # Date and Times
         date  = self.get_date_string()
         day   = self.get_day_number()
         times = self.get_times()
         hours = self.get_hours(times)
         total = self.get_total_day(times)
-
-        print(date)
-
-        todo_tree = self.get_todo_tree()
-        all_todos = self.get_todo_list(todo_tree)[1:] # Remove the abstract root
-        completed_todos = [t for t in all_todos if t['status'] == "X"]
-        cancelled_todos = [t for t in all_todos if t['status'] == "-"]
         weekday = datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%A")
+
         first_line = "Diary Entry for " + weekday + " (" + date + ")" + " - Day #" + str(day) 
         info = first_line + "\n"
         info += "=" * len(first_line) + "\n"
         info += "Hours worked: %02d:%02d\n" % tuple(hours)
         info += "Total day:    %02d:%02d\n" % tuple(total)
+
+        # TODOs
+        todo_tree = self.get_todo_tree()
+        all_todos = self.get_todo_list(todo_tree)[1:] # Remove the abstract root
+        completed_todos = [t for t in all_todos if t['status'] == "X"]
+        cancelled_todos = [t for t in all_todos if t['status'] == "-"]
+
         if completed_todos:
             comp_len = max([len(t['note']) for t in completed_todos])
             info += "Completed Tasks:\n"
