@@ -1,0 +1,8 @@
+[
+    {
+        "caption": "Go to diary entry",
+        "mnemonic": "G",
+        "id": "goto_entry",
+        "command": "linking_entries",
+    }
+]
