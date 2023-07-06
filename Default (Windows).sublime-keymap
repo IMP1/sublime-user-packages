@@ -22,7 +22,7 @@
     { "keys": ["alt+enter"],      "command": "toggle_checkbox", 
                                   "args": {"target": "toggle"},
                                   "context": [
-            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.unnumbered.note", "match_all": true },
+            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.unnumbered", "match_all": true },
             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
             { "key": "auto_complete_visible", "operator": "equal", "operand": false },
         ]
@@ -38,7 +38,7 @@
     { "keys": ["alt+enter"],      "command": "toggle_checkbox", 
                                   "args": {"target": "toggle"},
                                   "context": [
-            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.numbered.note", "match_all": true },
+            { "key": "eol_selector", "operator": "equal", "operand": "markup.list.numbered", "match_all": true },
             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
             { "key": "auto_complete_visible", "operator": "equal", "operand": false },
         ]
@@ -62,20 +62,20 @@
 
     { "keys": ["enter"],          "command": "add_list_item", 
                                   "context": [
-            { "key": "selector", "operator": "equal", "operand": "markup.list.unnumbered.note" },
+            { "key": "selector", "operator": "equal", "operand": "markup.list.unnumbered" },
             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
             { "key": "auto_complete_visible", "operator": "equal", "operand": false },
         ]
     },
     { "keys": ["enter"],          "command": "add_numbered_list_item", 
                                   "context": [
-            { "key": "selector", "operator": "equal", "operand": "markup.list.numbered.note" },
+            { "key": "selector", "operator": "equal", "operand": "markup.list.numbered" },
             { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
             { "key": "auto_complete_visible", "operator": "equal", "operand": false },
         ]
     },
 
     { "keys": ["ctrl+k", "ctrl+t"],          "command": "insert_time" },
+    { "keys": ["ctrl+k", "ctrl+d"],          "command": "insert_date" },
 
 ]
-
